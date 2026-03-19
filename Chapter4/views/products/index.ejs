@@ -1,0 +1,33 @@
+<%- include('../partials/header', { title: title }) %>
+<%- include('../partials/flash') %>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Products</h2>
+  <a class="btn btn-primary" href="/products/new">Add product</a>
+</div>
+
+<% if (products && products.length) { %>
+  <table class="table table-striped">
+    <thead>
+      <tr><th>Name</th><th>Price</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+    <% products.forEach(function(p) { %>
+      <tr>
+        <td><%= p.name %></td>
+        <td>$<%= Number(p.price).toFixed(2) %></td>
+        <td>
+          <a class="btn btn-sm btn-outline-secondary" href="/products/<%= p.id %>/edit">Edit</a>
+          <form action="/products/<%= p.id %>?_method=DELETE" method="post" style="display:inline">
+            <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Delete this product?')">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table>
+<% } else { %>
+  <div class="alert alert-info">No products yet.</div>
+<% } %>
+
+<%- include('../partials/footer') %>

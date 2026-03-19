@@ -1,0 +1,19 @@
+<% if (typeof flash !== 'undefined' && (flash.error || flash.info || flash.success)) { %>
+  <div class="mb-3">
+    <% if (flash.error) { %>
+      <% flash.error.forEach(function(msg){ %>
+        <div class="alert alert-danger" role="alert"><%= msg %></div>
+      <% }) %>
+    <% } %>
+    <% if (flash.success) { %>
+      <% flash.success.forEach(function(msg){ %>
+        <div class="alert alert-success" role="alert"><%= msg %></div>
+      <% }) %>
+    <% } %>
+    <% if (flash.info) { %>
+      <% flash.info.forEach(function(msg){ %>
+        <div class="alert alert-info" role="alert"><%= msg %></div>
+      <% }) %>
+    <% } %>
+  </div>
+<% } %>

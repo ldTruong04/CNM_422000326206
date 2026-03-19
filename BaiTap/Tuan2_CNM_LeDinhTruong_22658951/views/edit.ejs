@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+
+    <p><a href="/">← Quay lại danh sách sản phẩm</a></p>
+
+    <form action="/products/<%= product.id %>" method="POST" enctype="multipart/form-data">
+      <div>
+        <label for="name">Tên sản phẩm:</label><br />
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value="<%= product.name %>"
+          required
+        />
+      </div>
+
+      <div>
+        <label for="price">Giá:</label><br />
+        <input
+          type="number"
+          id="price"
+          name="price"
+          min="0"
+          step="1000"
+          value="<%= product.price %>"
+          required
+        />
+      </div>
+
+      <div>
+        <label for="quantity">Số lượng tồn kho:</label><br />
+        <input
+          type="number"
+          id="quantity"
+          name="quantity"
+          min="0"
+          step="1"
+          value="<%= product.quantity %>"
+          required
+        />
+      </div>
+
+      <div>
+        <p>Hình ảnh hiện tại:</p>
+        <% if (product.url_image) { %>
+          <img
+            src="<%= product.url_image %>"
+            alt="<%= product.name %>"
+            style="width: 80px; height: 80px; object-fit: cover;"
+          />
+        <% } else { %>
+          <span>Chưa có ảnh</span>
+        <% } %>
+      </div>
+
+      <div>
+        <label for="image">Chọn ảnh mới (nếu muốn thay):</label><br />
+        <input type="file" id="image" name="image" accept="image/*" />
+      </div>
+
+      <div style="margin-top: 16px;">
+        <button type="submit">Cập nhật sản phẩm</button>
+      </div>
+    </form>
+  </body>
+</html>
+

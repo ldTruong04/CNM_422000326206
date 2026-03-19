@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh sách sản phẩm</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Quản lý sản phẩm</h1>
+      <a href="/add" class="btn btn-primary">Thêm sản phẩm</a>
+    </header>
+
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div class="alert alert-error"><%= error %></div>
+    <% } %>
+
+    <main>
+      <% if (!products || products.length === 0) { %>
+        <p class="empty">Chưa có sản phẩm nào. <a href="/add">Thêm sản phẩm</a></p>
+      <% } else { %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Hình ảnh</th>
+              <th>Tên sản phẩm</th>
+              <th>Giá</th>
+              <th>Thao tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% products.forEach(function(p) { %>
+              <tr>
+                <td>
+                  <% if (p.url_image) { %>
+                    <img src="<%= p.url_image %>" alt="<%= p.name %>" class="thumb">
+                  <% } else { %>
+                    <span class="no-image">—</span>
+                  <% } %>
+                </td>
+                <td><%= p.name %></td>
+                <td><%= Number(p.price).toLocaleString('vi-VN') %> ₫</td>
+                <td class="actions">
+                  <a href="/edit/<%= p.id %>" class="btn btn-sm">Sửa</a>
+                  <a href="/delete/<%= p.id %>" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc muốn xóa?');">Xóa</a>
+                </td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      <% } %>
+    </main>
+  </div>
+</body>
+</html>

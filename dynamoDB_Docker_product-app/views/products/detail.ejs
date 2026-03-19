@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Detail</title>
+</head>
+<body>
+  <% if (error) { %>
+  <p><strong>Error:</strong> <%= error %></p>
+  <a href="/">Back to List</a>
+  <% } else { %>
+  <h1><%= product.name %></h1>
+  <a href="/">Back</a>
+
+  <% if (product.url_image) { %>
+  <img src="<%= product.url_image %>" alt="<%= product.name %>" width="200" height="200" />
+  <% } else { %>
+  <p>No image</p>
+  <% } %>
+
+  <p>
+    <strong>Name:</strong> <%= product.name %>
+  </p>
+  <p>
+    <strong>Price:</strong> $<%= Number(product.price || 0).toFixed(2) %>
+  </p>
+  <p>
+    <strong>Unit In Stock:</strong> <%= product.unit_in_stock %>
+  </p>
+  <p>
+    <strong>ID:</strong> <%= product.id %>
+  </p>
+
+  <a href="/edit/<%= product.id %>">Edit</a>
+  <form method="POST" action="/product/<%= product.id %>?_method=DELETE" onsubmit="return confirm('Delete this product?');" style="display:inline;">
+    <button type="submit">Delete</button>
+  </form>
+  <% } %>
+</body>
+</html>

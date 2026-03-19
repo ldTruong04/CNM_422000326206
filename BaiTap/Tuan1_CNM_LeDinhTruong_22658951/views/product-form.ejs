@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= product ? 'Chỉnh sửa' : 'Thêm mới' %> Sản phẩm</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        .btn-primary {
+            background-color: #667eea;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #5568d3;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        .form-actions {
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><%= product ? '✏️ Chỉnh sửa' : '➕ Thêm mới' %> Sản phẩm</h1>
+
+        <% if (error) { %>
+            <div class="alert alert-error">
+                ❌ <%= error %>
+            </div>
+        <% } %>
+
+        <form action="<%= product ? '/edit/' + product.id : '/add' %>" method="POST">
+            <div class="form-group">
+                <label for="name">Tên sản phẩm *</label>
+                <input type="text" 
+                       id="name" 
+                       name="name" 
+                       value="<%= product ? product.name : '' %>" 
+                       required 
+                       placeholder="Nhập tên sản phẩm">
+            </div>
+
+            <div class="form-group">
+                <label for="price">Giá (VNĐ) *</label>
+                <input type="number" 
+                       id="price" 
+                       name="price" 
+                       value="<%= product ? product.price : '' %>" 
+                       required 
+                       min="0" 
+                       step="0.01"
+                       placeholder="Nhập giá sản phẩm">
+            </div>
+
+            <div class="form-group">
+                <label for="quantity">Số lượng *</label>
+                <input type="number" 
+                       id="quantity" 
+                       name="quantity" 
+                       value="<%= product ? product.quantity : '' %>" 
+                       required 
+                       min="0"
+                       placeholder="Nhập số lượng">
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    <%= product ? '💾 Cập nhật' : '➕ Thêm mới' %>
+                </button>
+                <a href="/" class="btn btn-secondary">↩️ Quay lại</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+
